@@ -1,6 +1,8 @@
 from src.libs.aws.auth import AWSCognito
 from src.schemas.auth import UserConfirmSignUPRequest
 from src.schemas.auth import UserConfirmSignUPResponse
+from src.schemas.auth import UserSignINRequest
+from src.schemas.auth import UserSignINResponse
 from src.schemas.auth import UserSignUPRequest
 from src.schemas.auth import UserSignUPResponse
 
@@ -18,6 +20,11 @@ class AuthService:
         """Confirm the sign up of a user"""
         await self.auth_service.confirm_signup(user)
         return UserConfirmSignUPResponse(message="User confirmed successfully")
+
+    async def user_sign(self, user: UserSignINRequest) -> UserSignINResponse:
+        """Sign in for a user"""
+        response = await self.auth_service.user_signin(user)
+        return UserSignINResponse(**response)
 
 
 async def get_auth_service() -> AuthService:

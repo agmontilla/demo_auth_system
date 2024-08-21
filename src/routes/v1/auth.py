@@ -4,6 +4,8 @@ from fastapi.routing import APIRouter
 from src.routes.prefixes import V1
 from src.schemas.auth import UserConfirmSignUPRequest
 from src.schemas.auth import UserConfirmSignUPResponse
+from src.schemas.auth import UserSignINRequest
+from src.schemas.auth import UserSignINResponse
 from src.schemas.auth import UserSignUPRequest
 from src.schemas.auth import UserSignUPResponse
 from src.services.v1.auth import AuthService
@@ -28,3 +30,12 @@ async def confirm(
 ) -> UserConfirmSignUPResponse:
     """Confirm the sign up of a user"""
     return await auth_service.confirm_signup(user)
+
+
+@auth_router.post("/signin")
+async def signin(
+    user: UserSignINRequest,
+    auth_service: AuthService = Depends(get_auth_service),
+) -> UserSignINResponse:
+    """Sign in for a existing user"""
+    return await auth_service.user_sign(user)

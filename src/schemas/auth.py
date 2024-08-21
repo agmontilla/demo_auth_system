@@ -4,6 +4,8 @@ from annotated_types import MinLen
 from pydantic import BaseModel
 from pydantic import EmailStr
 
+from src.schemas.base import PascalToSnakeSchema
+
 
 class UserSignUPRequest(BaseModel):
     full_name: str
@@ -18,7 +20,7 @@ class UserSignUPResponse(BaseModel):
     sub: str
 
 
-class UserSignInRequest(BaseModel):
+class UserSignINRequest(BaseModel):
     email: EmailStr
     password: Annotated[str, MinLen(8)]
 
@@ -30,3 +32,10 @@ class UserConfirmSignUPRequest(BaseModel):
 
 class UserConfirmSignUPResponse(BaseModel):
     message: str
+
+
+class UserSignINResponse(PascalToSnakeSchema):
+    access_token: str
+    expires_in: int
+    token_type: str
+    refresh_token: str

@@ -4,7 +4,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 from src.schemas.auth import UserConfirmSignUPRequest
-from src.schemas.auth import UserSignInRequest
+from src.schemas.auth import UserSignINRequest
 from src.schemas.auth import UserSignUPRequest
 from src.settings import settings
 
@@ -63,7 +63,7 @@ class AWSCognito:
 
         return response
 
-    async def user_signin(self, user: UserSignInRequest) -> dict[str, Any]:
+    async def user_signin(self, user: UserSignINRequest) -> dict[str, Any]:
         """Sign in a user to AWS Cognito
 
         Reference:
@@ -83,4 +83,6 @@ class AWSCognito:
         if not isinstance(response, dict):
             raise TypeError("Expected response to be a dictionary")
 
-        return response
+        tokens: dict = response["AuthenticationResult"]
+
+        return tokens
