@@ -1,0 +1,10 @@
+[flake8]
+max-line-length = 140
+# E203: Whitespace before ':' (black compatibility)
+# E701: Multiple statements on one line (black compatibility)
+# https://github.com/psf/black/blob/main/docs/guides/using_black_with_other_tools.md#flake8
+extend-ignore = E203,E701 
+exclude = .git,__pycache__,old,build,dist,venv,env,.env,.venv
+per-file-ignores =
+    # Module level import not at top of file. This is due newrelic initialization.
+    */app/__main__.py: E402
