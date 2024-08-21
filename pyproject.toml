@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "demo-auth-system"
+version = "0.1.0"
+description = "An Authentication System using AWS Cognito"
+authors = ["Alfonso Montilla <montilla05alfonso@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = {extras = ["standard"], version = "^0.112.1"}
+boto3 = "^1.35.1"
+email-validator = "^2.2.0"
+uvicorn = "^0.30.6"
+pydantic-settings = "^2.4.0"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "~1"
+flake8 = "~7"
+black = "~22"
+pytest = "7.4.4"
+pytest-mock = "3.12.0"
+pytest-cov = "4.1.0"
+pylint = "3.0.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
