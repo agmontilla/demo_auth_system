@@ -51,7 +51,7 @@ class AWSCognito:
             response = self.client.confirm_sign_up(
                 ClientId=settings.AWS_COGNITO_APP_CLIENT_ID,
                 Username=user.email,
-                ConfirmationCode=user.confirmation_code,
+                ConfirmationCode=user.confirmation_code.get_secret_value(),
             )
         except ClientError as e:
             if e.response["Error"]["Code"] == "CodeMismatchException":
@@ -73,7 +73,7 @@ class AWSCognito:
             response = self.client.initiate_auth(
                 ClientId=settings.AWS_COGNITO_APP_CLIENT_ID,
                 AuthFlow="USER_PASSWORD_AUTH",
-                AuthParameters={"USERNAME": user.email, "PASSWORD": user.password},
+                AuthParameters={"USERNAME": user.email, "PASSWORD": user.password.get_secret_value()},
             )
         except ClientError as e:
             if e.response["Error"]["Code"] == "UserNotFoundException":
